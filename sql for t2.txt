@@ -1,0 +1,243 @@
+CREATE TABLE Sessions (
+    SessionNumber INT PRIMARY KEY,
+    SessionDay VARCHAR(20),
+    SessionStartTime TIME,
+    SessionEndTime TIME,
+    SessionType VARCHAR(50),
+    Floor INT
+);
+
+CREATE TABLE SessionPricing (
+    SessionType VARCHAR(50),
+    Floor INT,
+    Price DECIMAL(10, 2),
+    PRIMARY KEY (SessionType, Floor)
+);
+
+CREATE TABLE SessionTime (
+    SessionNumber INT PRIMARY KEY,
+    StartTime TIME,
+    EndTime TIME
+);
+
+CREATE TABLE SessionStaffDuty (
+    StaffName VARCHAR(100),
+    SessionNumber INT,
+    Role VARCHAR(50),
+    PRIMARY KEY (StaffName, SessionNumber)
+);
+
+CREATE TABLE Role (
+    RoleID INT PRIMARY KEY AUTO_INCREMENT,
+    Role VARCHAR(50)
+);
+CREATE TABLE Booking (
+    SessionNumber INT,
+    CustomerName VARCHAR(100),
+    Date DATE,
+    MemberYN CHAR(1),
+    PrepaidYN CHAR(1),
+    PRIMARY KEY (SessionNumber, CustomerName, Date)
+);
+
+CREATE TABLE MembershipFee (
+    MemberYN CHAR(1) PRIMARY KEY,
+    Fee DECIMAL(10, 2)
+);
+CREATE TABLE ArcadeMachine (
+    MachineNumber INT PRIMARY KEY,
+    Game VARCHAR(100),
+    Year INT,
+    Floor INT
+);
+
+9. Table 5A: Games Table
+
+sql
+
+CREATE TABLE Games (
+    Name VARCHAR(100) PRIMARY KEY,
+    PEGI VARCHAR(10)
+);
+
+10. Table 5B: Consoles Table
+
+sql
+
+CREATE TABLE Consoles (
+    Name VARCHAR(100),
+    Console VARCHAR(50),
+    ConsoleQty INT,
+    PRIMARY KEY (Name, Console)
+);
+
+11. Table 6A: Session Consoles Table
+
+sql
+
+CREATE TABLE SessionConsoles (
+    SessionNumber INT,
+    Date DATE,
+    Console VARCHAR(50),
+    Qty INT,
+    PRIMARY KEY (SessionNumber, Date, Console)
+);
+
+12. Table 7A: Customers Table
+
+sql
+
+CREATE TABLE Customers (
+    FirstName VARCHAR(50),
+    Surname VARCHAR(50),
+    AddressID INT,
+    MemberType VARCHAR(50),
+    JoinDate DATE,
+    DateOfBirth DATE,
+    PRIMARY KEY (FirstName, Surname, AddressID)
+);
+
+13. Table 7B: Membership Table
+
+sql
+
+CREATE TABLE Membership (
+    MemberType VARCHAR(50) PRIMARY KEY,
+    MembershipFee DECIMAL(10, 2)
+);
+
+14. Table 7C: Address Table
+
+sql
+
+CREATE TABLE Address (
+    AddressID INT PRIMARY KEY AUTO_INCREMENT,
+    Address VARCHAR(255)
+);
+
+
+
+insert value code:
+-- Insert data into Sessions
+INSERT INTO Sessions VALUES 
+(1, 'Sunday', '11:00:00', '19:00:00', 'Free', 1),
+(2, 'Sunday', '11:00:00', '19:00:00', 'Free', 2),
+(3, 'Saturday', '11:00:00', '19:00:00', 'Free', 1),
+(4, 'Friday', '19:00:00', '22:00:00', 'Special', 2);
+
+-- Insert data into SessionPricing
+INSERT INTO SessionPricing VALUES 
+('Free', 1, 1000.00),
+('Free', 2, 500.00),
+('Special', 2, 500.00);
+
+-- Insert data into SessionTime
+INSERT INTO SessionTime VALUES 
+(1, '11:00:00', '19:00:00'),
+(2, '11:00:00', '19:00:00'),
+(3, '11:00:00', '19:00:00'),
+(4, '19:00:00', '22:00:00');
+
+-- Insert data into SessionStaffDuty
+INSERT INTO SessionStaffDuty VALUES 
+('Sujal Bohara', 1, 'Cafe'),
+('Rajesh Hamal', 1, 'Maintenance'),
+('Rooz Ojha', 1, 'Counter'),
+('Rashi Timsina', 2, 'Counter'),
+('Jack Jones', 2, 'Maintenance');
+
+-- Insert data into Role
+INSERT INTO Role (Role) VALUES 
+('Cafe'),
+('Maintenance'),
+('Counter');
+
+-- Insert data into Booking
+INSERT INTO Booking VALUES 
+(1, 'Saroj Upadhyay', '2023-10-21', 'Y', 'N/A'),
+(1, 'Neha Kakkar', '2023-10-21', 'N', 'N'),
+(1, 'Himani Puri', '2023-10-21', 'Y', 'Y'),
+(1, 'Ritesh Gurung', '2023-10-25', 'N', 'N'),
+(2, 'Rohan Jha', '2023-10-21', 'Y', 'N'),
+(4, 'Ghanshyam Bhat', '2023-10-06', 'Y', 'Y');
+
+-- Insert data into MembershipFee
+INSERT INTO MembershipFee VALUES 
+('Y', 900.00),
+('N', 1000.00);
+
+-- Insert data into ArcadeMachine
+INSERT INTO ArcadeMachine VALUES 
+(123, 'Mario', 2005, 1),
+(78, 'Grand_Theft_Auto', 2013, 1),
+(12, 'Pokemon', 2016, 2),
+(45, 'PUBG_Battlegrounds', 2004, 1);
+
+-- Insert data into Games
+INSERT INTO Games VALUES 
+('FIFA 18', 'PG'),
+('Horizon Zero Dawn', 'PG'),
+('Legend of Zelda', 'PG'),
+('Halo 3', '15');
+
+-- Insert data into Consoles
+INSERT INTO Consoles VALUES 
+('FIFA 18', 'PS1', 3),
+('FIFA 18', 'PS2', 2),
+('Horizon Zero Dawn', 'PS4', 3),
+('Horizon Zero Dawn', 'PS2', 2),
+('Legend of Zelda', 'Nintendo Switch', 2),
+('Halo 3', 'Xbox 360', 4);
+
+-- Insert data into SessionConsoles
+INSERT INTO SessionConsoles VALUES 
+(1, '2023-10-21', 'PS1', 2),
+(2, '2023-10-21', 'PS2', 2);
+
+-- Insert data into Address
+INSERT INTO Address (Address) VALUES 
+('Dillibazar, Kathmandu'),
+('Putalisadak, Kathmandu'),
+('Baneshwor, Kathmandu'),
+('Gaushala, Kathmandu');
+
+-- Insert data into Customers
+INSERT INTO Customers VALUES 
+('Saroj', 'Upadhyay', 1, 'Standard', '2023-09-01', '1998-02-01'),
+('Neha', 'Kakkar', 2, 'Premium', '2023-06-05', '2000-10-15'),
+('Himani', 'Puri', 3, 'Premium', '2023-02-29', '2001-07-20'),
+('Ritesh', 'Gurung', 4, 'Standard', '2023-04-05', '1983-05-03');
+
+-- Insert data into Membership
+INSERT INTO Membership VALUES 
+('Standard', 1000.00),
+('Premium', 14000.00);
+
+
+3. SELECT CustomerName 
+FROM Booking 
+WHERE SessionNumber = 1 AND PrepaidYN = 'N';
+
+4. SELECT MachineNumber, Game, Year 
+FROM ArcadeMachine 
+WHERE Floor = 2 
+ORDER BY Year DESC;
+5. 
+SELECT COUNT(*) AS PS2GameCount 
+FROM Consoles 
+WHERE Console = 'PS2';
+
+6.SELECT StaffName 
+FROM SessionStaffDuty 
+WHERE SessionNumber = 1 AND Role = 'Counter';
+7. 
+UPDATE ArcadeMachine 
+SET Floor = 2 
+WHERE Game = 'Grand_Theft_Auto' AND Floor = 1;
+
+8.
+DELETE FROM ArcadeMachine 
+WHERE Game = 'Mario';
+
+
+
